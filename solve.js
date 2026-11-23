@@ -204,6 +204,7 @@ function valueOf(key, raw) {
 
 function parseFrontMatter(text) {
   if (text.length < 3 || text.charCodeAt(0) !== 45 || text.charCodeAt(1) !== 45 || text.charCodeAt(2) !== 45) return { error: 'no front matter' };
+  if (text.length > 3 && text.charCodeAt(3) !== 10) return { error: 'no front matter' }; // opening line must be exactly '---'
   if (text.length === 3) return { error: 'the front matter is not closed' };
   // close line is a line exactly '---': search for '\n---\n' or trailing '\n---'.
   let closeIdx = text.indexOf('\n---\n', 3);
